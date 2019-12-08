@@ -163,7 +163,7 @@ class SwiftTests: XCTestCase, GCDAsyncSocketDelegate {
         
         withUnsafeMutablePointer(to: &addr) {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
-                let errorCode = Darwin.connect(socketFD4, $0, socklen_t(MemoryLayout.size(ofValue: addr)));
+                let errorCode = Darwin.connect(socketFD4, $0, socklen_t(MemoryLayout<sockaddr_in>.size));
                 XCTAssertTrue(errorCode == 0, "Failed to connect to server");
             }
         }
@@ -197,7 +197,7 @@ class SwiftTests: XCTestCase, GCDAsyncSocketDelegate {
         
         withUnsafeMutablePointer(to: &addr) {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
-                let errorCode = Darwin.connect(socketFD6, $0, socklen_t(MemoryLayout.size(ofValue: addr)));
+                let errorCode = Darwin.connect(socketFD6, $0, socklen_t(MemoryLayout<sockaddr_in6>.size));
                 XCTAssertTrue(errorCode == 0, "Failed to connect to server");
             }
         }
